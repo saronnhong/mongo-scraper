@@ -1,0 +1,18 @@
+body {
+    background-image: url(../images/rice_fields.jpg);
+    background-size: 100%;
+}
+
+#nav1 {    
+    opacity: 0.9;   
+      
+}
+
+.homeLink, .savedArticlesLink, .homeLink:hover, .savedArticlesLink:hover {
+    font-size: 10px;
+    color: white;
+    margin: 10px;
+}
+.btn {
+    margin: 7px;
+}
