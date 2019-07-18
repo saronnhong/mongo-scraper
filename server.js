@@ -53,6 +53,8 @@ app.get("/", (req, res) => {
             article: data
         }
         res.render("index", hbsobj);
+    }).catch(error => {
+        res.json(error)
     })
     
 });
