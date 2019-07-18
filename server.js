@@ -41,12 +41,7 @@ require("./routes/apiRoutes")(app);
 //   require("./routes/htmlRoutes")(app);
 
 // Connect to the Mongo DB and connect
-if (process.env.MONGODB_URI) {
-    mongoose.connect(process.env.MONGODB_URI);
-} else {
-    mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true }); 
-
-}
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines", { useNewUrlParser: true }); 
 
 
 // Routes
