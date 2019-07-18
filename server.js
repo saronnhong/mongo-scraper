@@ -40,10 +40,13 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 //   require("./routes/htmlRoutes")(app);
 
-// Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// Connect to the Mongo DB and connect
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+} else {
+    mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true }); 
+}
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Routes
 var hbsobj={};
