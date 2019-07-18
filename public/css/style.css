@@ -1,0 +1,48 @@
+body {
+    background-image: url(../images/rice_fields.jpg);
+    background-size: auto;
+}
+
+#nav1 {    
+    opacity: 0.9;   
+}
+
+.homeLink, .savedArticlesLink, .homeLink:hover, .savedArticlesLink:hover {
+    font-size: 10px;
+    color: white;
+    margin: 10px;
+}
+.btn {
+    margin: 5px;
+}
+a:not([href]):not([tabindex]) {
+    color: white;
+}
+.card {
+    margin: 12px 0 0 0;
+    width: 90%;
+    opacity: 0.9; 
+}
+.card-header {
+    
+    background-color: #343a40;
+    
+}
+
+.article-link {
+    font-size: 20px;
+    color: rgb(230, 230, 230);
+}
+.save {
+    
+    float: right;
+    right: 0;
+  }
+
+
+/* @media screen and (max-width: 1225px) {
+    body {
+        
+        background-size: auto;
+    }
+  } */
