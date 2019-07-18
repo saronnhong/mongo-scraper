@@ -42,9 +42,10 @@ require("./routes/apiRoutes")(app);
 
 // Connect to the Mongo DB and connect
 if (process.env.MONGODB_URI) {
-    mongoose.connect(process.env.MONGODB_URI);
+    mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 } else {
     mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true }); 
+
 }
 
 
@@ -96,11 +97,14 @@ app.get("/scrape", function (req, res) {
             result.link = $(this).children().children().attr("href");
             result.summary = $(this).find(".td-excerpt").text();
 
+            if (!result.title || !result.link || !result.summary) {
+                console.log(result)
+            }
+
             // Create a new Article using the `result` object built from scraping
             db.Article.create(result)
                 .then(function (dbArticle) {
                     // View the added result in the console
-                    console.log(dbArticle);
                 })
                 .catch(function (err) {
                     // If an error occurred, log it
