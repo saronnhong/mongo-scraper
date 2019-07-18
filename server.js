@@ -52,8 +52,9 @@ app.get("/", (req, res) => {
         hbsobj = {
             article: data
         }
+        res.render("index", hbsobj);
     })
-    res.render("index", hbsobj);
+    
 });
 
 //route finds all that are saved and displays list on page with handlebars
