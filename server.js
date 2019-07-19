@@ -47,7 +47,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines"
      console.log(process.env.MONGODB_URI);
  }); 
 
-mongoose.connect.on('error', error => {
+mongoose.connection.on('error', error => {
     console.log(error);
 });
 
