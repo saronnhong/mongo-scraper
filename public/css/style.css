@@ -39,10 +39,3 @@ a:not([href]):not([tabindex]) {
     right: 0;
   }
 
-
-/* @media screen and (max-width: 1225px) {
-    body {
-        
-        background-size: auto;
-    }
-  } */
