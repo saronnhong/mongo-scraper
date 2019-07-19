@@ -41,7 +41,15 @@ require("./routes/apiRoutes")(app);
 //   require("./routes/htmlRoutes")(app);
 
 // Connect to the Mongo DB and connect
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines", { useNewUrlParser: true }); 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines", { useNewUrlParser: true })
+ .catch(error => {
+     console.log('there was an error connecting to the database')
+     console.log(process.env.MONGODB_URI);
+ }); 
+
+mongoose.connect.on('error', error => {
+    console.log(error);
+});
 
 
 //route finds all and displays list on page with handlebars
