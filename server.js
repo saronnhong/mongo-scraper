@@ -40,17 +40,18 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 //   require("./routes/htmlRoutes")(app);
 
-// Connect to the Mongo DB and connect
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines", { useNewUrlParser: true })
- .catch(error => {
-     console.log('there was an error connecting to the database')
-     console.log(process.env.MONGODB_URI);
- }); 
+// // Connect to the Mongo DB and connect
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines", { useNewUrlParser: true })
+//  .catch(error => {
+//      console.log('there was an error connecting to the database')
+//      console.log(process.env.MONGODB_URI);
+//  }); 
 
-mongoose.connection.on('error', error => {
-    console.log(error);
-});
-
+// mongoose.connection.on('error', error => {
+//     console.log(error);
+// });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 //route finds all and displays list on page with handlebars
 app.get("/", (req, res) => {
