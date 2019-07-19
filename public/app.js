@@ -34,10 +34,10 @@ $(document).on("click", "#scrapeNow", function () {
 $(document).on("click", ".save", function () {
   // Now make an ajax call for the Article
   var thisId = $(this).attr("data-id");
-  alert("hit the save button");
+  
   $.ajax({
-    method: "GET",
-    url: "/addtosave/" + thisId
+    method: "POST",
+    url: "/articles/" + thisId
   })
     // With that done, add the note information to the page
     .then((data) => {

@@ -37,7 +37,7 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/apiRoutes")(app);
+// require("./routes/apiRoutes")(app);
 //   require("./routes/htmlRoutes")(app);
 
 // // Connect to the Mongo DB and connect
@@ -77,9 +77,13 @@ app.get("/saved", (req, res) => {
 });
 
 //route changes article to saved
-app.get("/addtosave/:id", (req, res) => {
-    console.log("the id is " + req.params.id);
-    db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: true } }, { new: true })
+app.post("/addtosave/:id", (req, res) => {
+    
+      db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: true } },{ new: true });
+    
+        
+    
+    
     res.send("you successfully saved the article.");
 });
 
@@ -172,7 +176,7 @@ app.post("/articles/:id", function (req, res) {
             // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
             // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
             // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { note: dbNote._id } }, { new: true });
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { note: dbNote._id, saved: true }  }, { new: true });
         })
         .then(function (dbUser) {
             // If the User was updated successfully, send it back to the client
