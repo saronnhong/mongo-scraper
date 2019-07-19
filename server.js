@@ -44,16 +44,14 @@ require("./routes/apiRoutes")(app);
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines", { useNewUrlParser: true }); 
 
 
-// Routes
-var hbsobj={};
 //route finds all and displays list on page with handlebars
 app.get("/", (req, res) => {
     db.Article.find({}).then(data => {
-        hbsobj = {
+        var hbsobj = {
             article: data
         }
         res.render("index", hbsobj);
-    }).catch(error => {
+    }).catch(error => {s
         res.json(error)
     })
     
@@ -62,11 +60,11 @@ app.get("/", (req, res) => {
 //route finds all that are saved and displays list on page with handlebars
 app.get("/saved", (req, res) => {
     db.Article.find({saved: true}).then(data => {
-        hbsobj = {
+        var hbsobj = {
             article: data
         }
+        res.render("index", hbsobj);
     })
-    res.render("index", hbsobj);
 });
 
 //route changes article to saved
@@ -95,14 +93,11 @@ app.get("/scrape", function (req, res) {
             result.link = $(this).children().children().attr("href");
             result.summary = $(this).find(".td-excerpt").text();
 
-            if (!result.title || !result.link || !result.summary) {
-                console.log(result)
-            }
-
             // Create a new Article using the `result` object built from scraping
             db.Article.create(result)
                 .then(function (dbArticle) {
                     // View the added result in the console
+                    console.log(dbArticle);
                 })
                 .catch(function (err) {
                     // If an error occurred, log it
@@ -114,6 +109,9 @@ app.get("/scrape", function (req, res) {
         //   res.send("Scrape Complete");
         console.log("scrape complete");
         res.send("everyone thing is ok");
+    }).catch(error => {
+        console.log("failed to reach cambodiadaily")
+        res.json(error);
     });
 
 });

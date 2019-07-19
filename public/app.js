@@ -7,7 +7,7 @@ $(document).on("click", "#scrapeNow", function () {
 
       console.log(data);
     })
-})
+});
 
 
 // Whenever someone clicks a p tag
