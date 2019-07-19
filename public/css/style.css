@@ -33,7 +33,7 @@ a:not([href]):not([tabindex]) {
     font-size: 20px;
     color: rgb(230, 230, 230);
 }
-.save {
+.save, .noteButton, .deleteButton {
     
     float: right;
     right: 0;

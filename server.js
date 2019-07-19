@@ -31,7 +31,7 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.get("/", (req, res) => {
-    db.Article.find({}).then(data => {
+    db.Article.find({saved: false}).then(data => {
         var hbsobj = {
             article: data
         }
@@ -46,7 +46,7 @@ app.get("/saved", (req, res) => {
         var hbsobj = {
             article: data
         }
-        res.render("index", hbsobj);
+        res.render("saved", hbsobj);
     })
 });
 
@@ -95,13 +95,27 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
-
+//save and add note
 app.post("/articles/:id", function (req, res) {
     db.Note.create(req.body)
         .then(function (dbNote) {
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { note: dbNote._id, saved: true }  }, { new: true });
         })
         .then(function (dbUser) {
+            res.json(dbUser);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+//unsave
+app.post("/unsave/:id", function (req, res) {
+    db.Note.create(req.body)
+        .then(function (dbNote) {
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { note: dbNote._id, saved: false }  }, { new: true });
+        })
+        .then(function (dbUser) {
+            // res.redirect('back');
             res.json(dbUser);
         })
         .catch(function (err) {
